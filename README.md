@@ -1,8 +1,8 @@
 # eltr
 
-`eltr` is an experimental Rust crate for creating HTML elements with a declarative syntax, designed for use in WebAssembly projects. It provides macros to simplify the creation of DOM elements, handling of attributes, and event listeners.
+`eltr` is an simple tool for creating HTML elements with a declarative syntax, designed for use in WebAssembly projects. It provides macros to simplify the creation of DOM elements, handling of attributes, and event listeners.
 
-**⚠️ Warning: This crate is a work in progress and is currently in an experimental stage. APIs may change, and it may not be suitable for production use yet.**
+**⚠️ Warning: This crate is a work in progress and is currently in an experimental stage. APIs may change, and it is not suitable for production use yet.**
 
 ## Features
 
@@ -20,7 +20,7 @@ Add this to your `Cargo.toml`:
 eltr = { git = "https://github.com/c12i/eltr" }
 ```
 
-Note: You don't need to explicitly include `wasm_bindgen` or `web_sys` in your dependencies, as `elt` re-exports these for you.
+Note: You don't need to explicitly include `wasm_bindgen` or `web_sys` in your dependencies, as `eltr` re-exports these for you.
 
 ## Usage
 
@@ -38,10 +38,9 @@ fn create_app() -> Element {
     let click_count = Rc::new(RefCell::new(0));
     let click_count_clone = Rc::clone(&click_count);
 
-    elt!("div",
-        {
-            class: attr!("container")
-        },
+    elt!(
+        "div",
+        { class: attr!("container") },
         elt!("h1", text!("Welcome to elt!")),
         elt!("p", text!("Click the button below:")),
         elt!("button",
@@ -56,7 +55,15 @@ fn create_app() -> Element {
             },
             text!("Click me!")
         ),
-        elt!("p", text!("This is an experimental library."))
+        elt!(
+            "p",
+            text!("Fork me on "),
+            elt!(
+                "a",
+                { href: attr!("https://github.com/c12i/eltr"), target: attr!("_blank") },
+                text!("GitHub")
+            )
+        );
     )
 }
 
@@ -84,7 +91,3 @@ As this is an experimental project, contributions, suggestions, and feedback are
 ## License
 
 This project is licensed under [LICENSE NAME] - see the [LICENSE.md](LICENSE.md) file for details.
-
----
-
-Remember, `eltr` is still experimental and potentially buggy.

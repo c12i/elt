@@ -1,18 +1,4 @@
 #[macro_export]
-macro_rules! attr {
-    ($value:expr) => {
-        $crate::PropType::Attr($value.to_string())
-    };
-}
-
-#[macro_export]
-macro_rules! cb {
-    ($value:expr) => {
-        $crate::PropType::Callback($crate::wasm_bindgen::closure::Closure::wrap($value))
-    };
-}
-
-#[macro_export]
 macro_rules! elt {
     ($type:expr) => {{
         $crate::web_sys::window()
@@ -105,6 +91,20 @@ macro_rules! text {
             .unwrap()
             .create_text_node(&$content.to_string())
     }};
+}
+
+#[macro_export]
+macro_rules! attr {
+    ($value:expr) => {
+        $crate::PropType::Attr($value.to_string())
+    };
+}
+
+#[macro_export]
+macro_rules! cb {
+    ($value:expr) => {
+        $crate::PropType::Callback($crate::wasm_bindgen::closure::Closure::wrap($value))
+    };
 }
 
 #[cfg(test)]
