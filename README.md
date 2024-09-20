@@ -1,6 +1,6 @@
-# elt
+# eltr
 
-`elt` is an experimental Rust crate for creating HTML elements with a declarative syntax, designed for use in WebAssembly projects. It provides macros to simplify the creation of DOM elements, handling of attributes, and event listeners.
+`eltr` is an experimental Rust crate for creating HTML elements with a declarative syntax, designed for use in WebAssembly projects. It provides macros to simplify the creation of DOM elements, handling of attributes, and event listeners.
 
 **⚠️ Warning: This crate is a work in progress and is currently in an experimental stage. APIs may change, and it may not be suitable for production use yet.**
 
@@ -17,17 +17,17 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-elt = { git = "https://github.com/c12i/elt" } 
+eltr = { git = "https://github.com/c12i/eltr" }
 ```
 
 Note: You don't need to explicitly include `wasm_bindgen` or `web_sys` in your dependencies, as `elt` re-exports these for you.
 
 ## Usage
 
-Here's a basic example of how to use `elt`:
+Here's a basic example of how to use `eltr`:
 
 ```rust,no_run
-use elt::*;
+use eltr::*;
 use std::rc::Rc;
 use std::cell::RefCell;
 
@@ -82,4 +82,4 @@ This project is licensed under [LICENSE NAME] - see the [LICENSE.md](LICENSE.md)
 
 ---
 
-Remember, `elt` is still experimental and potentially buggy.
+Remember, `eltr` is still experimental and potentially buggy.
