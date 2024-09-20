@@ -51,11 +51,11 @@ macro_rules! elt {
         let element = elt!($type, { $($key: $value),* });
         $(
             match $child {
-                child if child.is_instance_of::<web_sys::Node>() => {
+                child if child.is_instance_of::<$crate::web_sys::Node>() => {
                     element.append_child(child.unchecked_ref()).unwrap();
                 },
                 child => {
-                    let text_node = web_sys::window()
+                    let text_node = $crate::web_sys::window()
                         .unwrap()
                         .document()
                         .unwrap()
@@ -72,11 +72,11 @@ macro_rules! elt {
         let element = elt!($type);
         $(
             match $child {
-                child if child.is_instance_of::<web_sys::Node>() => {
+                child if child.is_instance_of::<$crate::web_sys::Node>() => {
                     element.append_child(child.unchecked_ref()).unwrap();
                 },
                 child => {
-                    let text_node = web_sys::window()
+                    let text_node = $crate::web_sys::window()
                         .unwrap()
                         .document()
                         .unwrap()
@@ -92,7 +92,7 @@ macro_rules! elt {
 #[macro_export]
 macro_rules! text {
     ($content:expr) => {{
-        web_sys::window()
+        $crate::web_sys::window()
             .unwrap()
             .document()
             .unwrap()
