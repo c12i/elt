@@ -1,14 +1,21 @@
 #[macro_export]
 macro_rules! attr {
-    ($value:expr) => {{
+    ($value:expr) => {
         $crate::PropType::Attr($value.to_string())
-    }};
+    };
+}
+
+#[macro_export]
+macro_rules! cb {
+    ($value:expr) => {
+        $crate::PropType::Callback($crate::wasm_bindgen::closure::Closure::wrap($value))
+    };
 }
 
 #[macro_export]
 macro_rules! elt {
     ($type:expr) => {{
-        web_sys::window()
+        $crate::web_sys::window()
             .unwrap()
             .document()
             .unwrap()
@@ -104,11 +111,9 @@ macro_rules! text {
 mod tests {
     use std::{cell::RefCell, rc::Rc};
 
-    use wasm_bindgen::{prelude::Closure, JsCast};
+    use wasm_bindgen::JsCast;
     use wasm_bindgen_test::*;
     use web_sys::{Event, MouseEvent};
-
-    use crate::PropType;
 
     wasm_bindgen_test_configure!(run_in_browser);
 
@@ -224,9 +229,11 @@ mod tests {
 
         let element = elt!("button",
             {
-                onclick: PropType::Callback(Closure::wrap(Box::new(move |_event: Event| {
-                    *click_count_clone.borrow_mut() += 1;
-                }) as Box<dyn FnMut(Event)>)),
+                onclick: cb!(
+                    Box::new(move |_event: Event| {
+                        *click_count_clone.borrow_mut() += 1;
+                    }) as Box<dyn FnMut(Event)>
+                ),
                 id: attr!("test-button"),
                 class: attr!("btn btn-primary")
             },

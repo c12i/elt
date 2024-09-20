@@ -31,10 +31,10 @@ use std::rc::Rc;
 use std::cell::RefCell;
 
 use eltr::wasm_bindgen::prelude::*;
-use eltr::web_sys::{self, *};
-use eltr::{attr, elt, text, PropType};
+use eltr::web_sys::*;
+use eltr::{attr, elt, text, cb};
 
-fn create_app() -> web_sys::Element {
+fn create_app() -> Element {
     let click_count = Rc::new(RefCell::new(0));
     let click_count_clone = Rc::clone(&click_count);
 
@@ -46,10 +46,12 @@ fn create_app() -> web_sys::Element {
         elt!("p", text!("Click the button below:")),
         elt!("button",
             {
-                onclick: PropType::Callback(Closure::wrap(Box::new(move |_event: Event| {
-                    *click_count_clone.borrow_mut() += 1;
-                    console::log_1(&format!("Clicked {} times!", click_count_clone.borrow()).into());
-                }) as Box<dyn FnMut(Event)>)),
+                onclick: cb!(
+                    Box::new(move |_event: Event| {
+                        *click_count_clone.borrow_mut() += 1;
+                        console::log_1(&format!("Clicked {} times!", click_count_clone.borrow()).into());
+                    }) as Box<dyn FnMut(Event)>
+                ),
                 class: attr!("btn btn-primary")
             },
             text!("Click me!")
