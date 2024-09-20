@@ -1,0 +1,16 @@
+[package]
+name = "elt"
+version = "0.1.0"
+authors = ["c12i <hello@collinsmuriuki.xyz>"]
+edition = "2021"
+
+[dependencies]
+js-sys = "0.3.70"
+wasm-bindgen = "0.2.93"
+
+[dependencies.web-sys]
+version = "0.3.70"
+features= ["HtmlElement", "HtmlCollection", "Window", "Document", "Text", "Event", "MouseEvent"]
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.43"
