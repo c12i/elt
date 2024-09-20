@@ -27,9 +27,12 @@ Note: You don't need to explicitly include `wasm_bindgen` or `web_sys` in your d
 Here's a basic example of how to use `eltr`:
 
 ```rust,no_run
-use eltr::*;
 use std::rc::Rc;
 use std::cell::RefCell;
+
+use eltr::wasm_bindgen::prelude::*;
+use eltr::web_sys::{self, *};
+use eltr::{attr, elt, text, PropType};
 
 fn create_app() -> web_sys::Element {
     let click_count = Rc::new(RefCell::new(0));
